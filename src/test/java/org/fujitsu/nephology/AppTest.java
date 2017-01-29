@@ -1,13 +1,17 @@
 package org.fujitsu.nephology;
 
+import hello.SampleController;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import static org.mockito.Mockito.mock;
+
 /**
  * Unit test for simple App.
  */
-public class AppTest 
+//// TODO: 2017-01-29 Class to be removed - only for the initial configuration check
+public class AppTest
     extends TestCase
 {
     /**
@@ -34,5 +38,9 @@ public class AppTest
     public void testApp()
     {
         assertTrue( true );
+    }
+
+    public void testMockito() {
+        mock(SampleController.class);
     }
 }
