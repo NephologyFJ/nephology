@@ -1,6 +1,6 @@
 package org.fujitsu.nephology;
 
-import hello.SampleController;
+import hello.Application;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -41,6 +41,6 @@ public class AppTest
     }
 
     public void testMockito() {
-        mock(SampleController.class);
+        mock(Application.class);
     }
 }
