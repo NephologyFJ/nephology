@@ -18,12 +18,13 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        String s = saveInDbAndReturn("some message");
-        System.out.println(s);
+        this.repository.save(new Hello("Hello1"));
+        this.repository.save(new Hello("Hello2"));
+        this.repository.save(new Hello("Hello3"));
+        this.repository.save(new Hello("Hello4"));
     }
 
     private String saveInDbAndReturn(String message) {
-        repository.deleteAll();
         repository.save(new Hello(message));
         Hello fromDb = repository.findByMessage(message);
         return fromDb.getMessage() + "from DB!";
