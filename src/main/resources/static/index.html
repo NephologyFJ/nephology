@@ -5,36 +5,55 @@
 </head>
 <body>
 <div id='root'></div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.css">
 <script src="https://fb.me/react-15.0.1.js"></script>
 <script src="https://fb.me/react-dom-15.0.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script type="text/babel">
-var Employee = React.createClass({
+var Hello = React.createClass({
+  getInitialState: function() {
+    return {display: true };
+  },
+  handleDelete() {
+    var self = this;
+    $.ajax({
+      url: self.props.hello._links.self.href,
+      type: 'DELETE',
+      success: function(result) {
+        self.setState({display: false});
+      },
+      error: function(xhr, ajaxOptions, thrownError) {
+        toastr.error(xhr.responseJSON.message);
+      }
+    });
+  },
   render: function() {
-    return (
+    if (this.state.display==false) return null;
+    else return (
       <tr>
-        <td>{this.props.employee.name}</td>
-        <td>{this.props.employee.age}</td>
-        <td>{this.props.employee.years}</td>
-      </tr>);
+        <td>{this.props.hello.message}</td>
+        <td>
+          <button className="btn btn-info" onClick={this.handleDelete}>Delete</button>
+        </td>
+      </tr>
+    );
   }
 });
-var EmployeeTable = React.createClass({
+var HelloTable = React.createClass({
   render: function() {
     var rows = [];
-    this.props.employees.forEach(function(employee) {
-      rows.push(<Employee employee={employee} />);
+    this.props.helloes.forEach(function(hello) {
+      rows.push(<Hello hello={hello} />);
     });
     return (
       <div className="container">
           <table className="table table-striped">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Years</th>
+                <th>Message</th>
               </tr>
             </thead>
             <tbody>{rows}</tbody>
@@ -43,15 +62,30 @@ var EmployeeTable = React.createClass({
       );
   }
 });
-var EMPLOYEES = [
-  {name: 'Joe Biden', age: 45, years: 5},
-  {name: 'President Obama', age: 54, years: 8},
-  {name: 'Crystal Mac', age: 34, years: 12},
-  {name: 'James Henry', age: 33, years: 2}
-];
-ReactDOM.render(
-  <EmployeeTable employees={EMPLOYEES} />, document.getElementById('root')
-);
+var App = React.createClass({
+
+  loadHelloesFromServer: function () {
+    var self = this;
+    $.ajax({
+      url: "http://localhost:8080/api/helloes"
+    }).then(function (data) {
+      self.setState({helloes: data._embedded.helloes});
+    });
+  },
+
+  getInitialState: function () {
+    return {helloes: []};
+  },
+
+  componentDidMount: function () {
+    this.loadHelloesFromServer();
+  },
+
+  render() {
+    return ( <HelloTable helloes={this.state.helloes}/> );
+  }
+});
+ReactDOM.render(<App />, document.getElementById('root') );
 </script>
 </body>
 </html>

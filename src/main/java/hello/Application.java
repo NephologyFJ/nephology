@@ -18,6 +18,7 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        repository.deleteAll();
         this.repository.save(new Hello("Hello1"));
         this.repository.save(new Hello("Hello2"));
         this.repository.save(new Hello("Hello3"));
