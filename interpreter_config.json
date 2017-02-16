@@ -10,9 +10,8 @@
           },
           "browserOptions": {
             "browserName": "firefox",
-            "username": "${SAUCE_USERNAME}",
-            "accessKey":
-            secure: "44HtPJQunhxmIxn3e68jBjZRwpHHlPywiK136CGYWka6cyPGWC+sXZXjpOU5MfT5EfJqH
+            "username": "nephology",
+            "accessKey": "44HtPJQunhxmIxn3e68jBjZRwpHHlPywiK136CGYWka6cyPGWC+sXZXjpOU5MfT5EfJqH
             ij4F5B2jMrF/Msda9E5hcDbpT+q6SmB049aYst9oZDtOGD/hQF2TFkSiaFkrxU+JBeTFoZwHhF7N4uOM
             2Uj9nT4KzDtKvft89l8+mRxf/93BAypFwBJfe0qWf9QSzV4DI82KwMCy27gv8NNBg9Al6SjNcChsowDq
             +P8+A+O/nlPsOAOalzi8uNblakaeZd2Y+16vH6RucNS1fXbRbJnOzavNUOzaytzds/UnsqLjEJv/Qk1w
