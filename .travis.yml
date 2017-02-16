@@ -9,3 +9,10 @@ addons:
   sauce_connect:
     username: "heroku"
     access_key: "8f730fe0-d160-41ff-9d47-d174c32a801c"
+
+  sonarqube:
+    token:
+      secure: c9495ad0cde57c7a52fa10eb7c19c0ae62853876 # encrypted value of your token
+script:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarQube analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
