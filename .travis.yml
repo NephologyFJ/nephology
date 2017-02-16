@@ -8,6 +8,9 @@ deploy:
 
 addons:
   sonarqube:
+  branches:
+    - master
+    - issue-10
     token:
       secure: c9495ad0cde57c7a52fa10eb7c19c0ae62853876 # encrypted value of your token
 script:
