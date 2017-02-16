@@ -6,10 +6,6 @@ deploy:
     secure: "86ba0a4e-7d26-4cb0-b2d4-8198358b3279"
 
 addons:
-  sauce_connect:
-    username: "heroku"
-    access_key: "8f730fe0-d160-41ff-9d47-d174c32a801c"
-
   sonarqube:
     token:
       secure: c9495ad0cde57c7a52fa10eb7c19c0ae62853876 # encrypted value of your token
