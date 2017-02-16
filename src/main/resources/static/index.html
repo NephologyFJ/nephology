@@ -68,7 +68,7 @@ var App = React.createClass({
   loadHelloesFromServer: function () {
     var self = this;
     $.ajax({
-      url: "http://localhost:8080/api/helloes"
+      url: "/api/helloes"
     }).then(function (data) {
       self.setState({helloes: data._embedded.helloes});
     });
