@@ -4,3 +4,8 @@ deploy:
   provider: heroku
   api_key:
     secure: "86ba0a4e-7d26-4cb0-b2d4-8198358b3279"
+
+addons:
+  sauce_connect:
+    username: "heroku"
+    access_key: "8f730fe0-d160-41ff-9d47-d174c32a801c"
