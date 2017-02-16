@@ -1,4 +1,5 @@
 language: java
+jdk: oraclejdk8
 
 deploy:
   provider: heroku
@@ -18,3 +19,12 @@ addons:
             0WwDcdhRuzbinXa96/KIHIU/JYv+zAqdZbCd8XITWF5gpWxiU19glyxkK+ypKCagyMgsp+YwTIdmGhB7
             OXwl3W1SDVFyB3T94Cv2sp0DSVaQPybCfTgc+fphPtm+g8bHRoRZp4amfgr5XP7iiTyoGmtcok+AiDI3
             6iJoX1zXZ4fYxd9cNbj+aCYWK0L+tKz+oLg1P0Y1UNvsDZIliH8VVs="
+  sonarqube:
+    token:
+      secure: c9495ad0cde57c7a52fa10eb7c19c0ae62853876 # encrypted value of your token
+    branches:
+      - master
+      - issue-10
+script:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarQube analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
