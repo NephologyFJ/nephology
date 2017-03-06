@@ -1,19 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>React + Spring</title>
-</head>
-<body>
-<div id='root'></div>
-<div id='root2'></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.css">
-<script src="https://fb.me/react-15.0.1.js"></script>
-<script src="https://fb.me/react-dom-15.0.1.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script type="text/babel">
 var Hello = React.createClass({
   getInitialState: function() {
     return {display: true };
@@ -87,19 +71,3 @@ var App = React.createClass({
   }
 });
 ReactDOM.render(<App />, document.getElementById('root') );
-</script>
-<script type="text/babel">
-var HelloInput = React.createClass({
-  render: function() {
-    return (
-    <div>second component</div>
-    );
-  }
-});
-
-ReactDOM.render(
-  <HelloInput />, document.getElementById('root2')
-);
-</script>
-</body>
-</html>

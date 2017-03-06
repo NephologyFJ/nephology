@@ -28,7 +28,7 @@
                             <goal>repackage</goal>
                         </goals>
                         <configuration>
-                            <mainClass>hello.Application</mainClass>
+                            <mainClass>nephology.Application</mainClass>
                         </configuration>
                     </execution>
                 </executions>
@@ -70,6 +70,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-rest</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.stormpath.spring</groupId>
+            <artifactId>stormpath-default-spring-boot-starter</artifactId>
+            <version>1.5.4</version>
         </dependency>
     </dependencies>
 </project>
