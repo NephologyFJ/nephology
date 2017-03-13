@@ -8,7 +8,7 @@
     <packaging>jar</packaging>
 
     <name>nephology</name>
-    <url>http://maven.apache.org</url>
+    <url>https://github.com/NephologyFJ/nephology/</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
