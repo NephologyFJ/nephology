@@ -4,12 +4,12 @@ jdk: oraclejdk8
 deploy:
   provider: heroku
   api_key:
-    secure: HEROKU_KEY
+    secure: $HEROKU_KEY
 
 addons:
   sonarqube:
     token:
-      secure: SONAR_TOKEN
+      secure: $SONAR_TOKEN
     branches:
       - master
 
