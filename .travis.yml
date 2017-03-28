@@ -8,10 +8,12 @@ deploy:
 
 addons:
   sonarqube:
+    organization: nephology
     token:
       secure: $SONAR_TOKEN
     branches:
       - master
+      - sonar-branches-test
 
 script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarQube analysis
