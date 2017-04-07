@@ -1,6 +1,8 @@
 package nephology.aws.ec2;
 
 import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.ClasspathPropertiesFileCredentialsProvider;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
@@ -21,21 +23,14 @@ public class EC2InstanceDetails {
 
     private final Logger logger = LoggerFactory.getLogger(EC2InstanceDetails.class);
 
-    private static final String REGION_DEFAULT = "us-west-2";
+    private EC2ClientProvider ec2ClientProvider;
 
-    private AmazonEC2 ec2;
-    private String region;
-
-    public EC2InstanceDetails() {
-        this(REGION_DEFAULT);
-    }
-
-    public EC2InstanceDetails(String region) {
-        this.region = region;
+    public EC2InstanceDetails(EC2ClientProvider ec2ClientProvider) {
+        this.ec2ClientProvider = ec2ClientProvider;
     }
 
     public List<Instance> getAllInstances() {
-        ec2 = getAmazonEC2DefaultClient();
+        final AmazonEC2 ec2 = ec2ClientProvider.getClient();
         boolean done = false;
         List<Instance> instanceList = new ArrayList<Instance>();
         while (!done) {
@@ -61,25 +56,4 @@ public class EC2InstanceDetails {
         return instanceList;
     }
 
-    protected AmazonEC2 getAmazonEC2DefaultClient() {
-        AWSCredentialsProvider credentials = getClasspathCredentials();
-        AmazonEC2 client = getStandardClientWithRegion(credentials);
-        return client;
-    }
-
-    protected AmazonEC2 getStandardClientWithRegion(AWSCredentialsProvider credentials) {
-        return AmazonEC2ClientBuilder.standard().withRegion(region).withCredentials(credentials).build();
-    }
-
-    protected ClasspathPropertiesFileCredentialsProvider getClasspathCredentials() {
-        return new ClasspathPropertiesFileCredentialsProvider();
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
 }
