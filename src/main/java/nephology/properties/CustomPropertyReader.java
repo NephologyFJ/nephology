@@ -12,7 +12,7 @@ public class CustomPropertyReader {
     /**
      * Example property
      */
-    @Value("${custom.sample}")
+    @Value("${custom.sample:default}")
     private String sample;
 
     /**
@@ -22,7 +22,7 @@ public class CustomPropertyReader {
     /**
      * Use proxy when creating AWS client
      */
-    @Value("${aws.useAwsProxy}")
+    @Value("${aws.useAwsProxy:false}")
     private boolean useAwsProxy;
 
     /**
