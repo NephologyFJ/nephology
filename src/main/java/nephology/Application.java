@@ -1,5 +1,6 @@
 package nephology;
 
+import nephology.properties.CustomPropertyReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class Application implements CommandLineRunner {
     @Autowired
     private HelloRepository repository;
 
+    @Autowired
+    private CustomPropertyReader cpr;
+
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
@@ -27,6 +31,12 @@ public class Application implements CommandLineRunner {
         logger.error("This is ERROR from logger");
         logger.warn("This is WARN from logger");
         logger.trace("This is TRACE from logger");
+        logger.info("************");
+        logger.info(cpr.getSample());
+        logger.info("************");
+        logger.info("************");
+        logger.info(cpr.getMongoAdminHref());
+        logger.info("************");
 
         this.repository.save(new Hello("Hello1"));
         this.repository.save(new Hello("Hello2"));
