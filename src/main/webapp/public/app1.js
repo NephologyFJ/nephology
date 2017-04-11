@@ -19,6 +19,7 @@ var Hello = React.createClass({
     if (this.state.display==false) return null;
     else return (
       <tr>
+        <td>{this.props.hello.userName}</td>
         <td>{this.props.hello.message}</td>
         <td>
           <button className="btn btn-info" onClick={this.handleDelete}>Delete</button>
@@ -38,6 +39,7 @@ var HelloTable = React.createClass({
           <table className="table table-striped">
             <thead>
               <tr>
+                <th>User Name</ th>
                 <th>Message</th>
               </tr>
             </thead>

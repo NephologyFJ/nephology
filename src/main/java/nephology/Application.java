@@ -28,14 +28,14 @@ public class Application implements CommandLineRunner {
         logger.warn("This is WARN from logger");
         logger.trace("This is TRACE from logger");
 
-        this.repository.save(new Hello("Hello1"));
-        this.repository.save(new Hello("Hello2"));
-        this.repository.save(new Hello("Hello3"));
-        this.repository.save(new Hello("Hello4"));
+        this.repository.save(new Hello("User1","Hello1"));
+        this.repository.save(new Hello("User2","Hello2"));
+        this.repository.save(new Hello("User3","Hello3"));
+        this.repository.save(new Hello("User4","Hello4"));
     }
 
-    private String saveInDbAndReturn(String message) {
-        repository.save(new Hello(message));
+    private String saveInDbAndReturn(String userName, String message) {
+        repository.save(new Hello(userName,message));
         Hello fromDb = repository.findByMessage(message);
         return fromDb.getMessage() + "from DB!";
     }

@@ -2,18 +2,18 @@ package nephology;
 
 import org.springframework.data.annotation.Id;
 
-
 public class Hello {
 
-    @Id
-    public String id;
+    @Id private String id;
 
+    public String userName;
     private String message;
 
     public Hello() {
     }
 
-    public Hello(String message) {
+    public Hello(String userName, String message) {
+        this.userName = userName;
         this.message = message;
     }
 
@@ -31,4 +31,8 @@ public class Hello {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    public String getUserName() { return userName; }
+
+    public void setUserName() { this.userName = userName; }
 }
