@@ -9,11 +9,33 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomPropertyReader {
 
+    /**
+     * Example property
+     */
     @Value("${custom.sample}")
     private String sample;
 
-    @Value("${mongo.admin.href}")
-    private String mongoAdminHref;
+    /**
+     * Properties for AWS configuration
+     */
+
+    /**
+     * Use proxy when creating AWS client
+     */
+    @Value("${aws.useAwsProxy}")
+    private boolean useAwsProxy;
+
+    /**
+     * Proxy host for AWS client
+     */
+    @Value("${aws.proxyHost:}")
+    private String proxyHost;
+
+    /**
+     * Proxy port for AWS client
+     */
+    @Value("${aws.proxyPort:0}")
+    private int proxyPort;
 
     public String getSample() {
         return sample;
@@ -23,11 +45,27 @@ public class CustomPropertyReader {
         this.sample = sample;
     }
 
-    public String getMongoAdminHref() {
-        return mongoAdminHref;
+    public boolean isUseAwsProxy() {
+        return useAwsProxy;
     }
 
-    public void setMongoAdminHref(String mongoAdminHref) {
-        this.mongoAdminHref = mongoAdminHref;
+    public void setUseAwsProxy(boolean useAwsProxy) {
+        this.useAwsProxy = useAwsProxy;
+    }
+
+    public String getProxyHost() {
+        return proxyHost;
+    }
+
+    public void setProxyHost(String proxyHost) {
+        this.proxyHost = proxyHost;
+    }
+
+    public int getProxyPort() {
+        return proxyPort;
+    }
+
+    public void setProxyPort(int proxyPort) {
+        this.proxyPort = proxyPort;
     }
 }

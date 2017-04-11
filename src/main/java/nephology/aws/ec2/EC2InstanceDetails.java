@@ -1,32 +1,30 @@
 package nephology.aws.ec2;
 
-import com.amazonaws.auth.AWSCredentialsProvider;
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.auth.ClasspathPropertiesFileCredentialsProvider;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.amazonaws.services.ec2.AmazonEC2;
-import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
 import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Reservation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by PLGrubskiM on 2017-04-03.
  */
+@Component
 public class EC2InstanceDetails {
 
     private final Logger logger = LoggerFactory.getLogger(EC2InstanceDetails.class);
 
+    @Autowired
     private EC2ClientProvider ec2ClientProvider;
 
-    public EC2InstanceDetails(EC2ClientProvider ec2ClientProvider) {
-        this.ec2ClientProvider = ec2ClientProvider;
+    public EC2InstanceDetails() {
     }
 
     public List<Instance> getAllInstances() {
