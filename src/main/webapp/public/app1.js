@@ -1,4 +1,4 @@
-var Hello = React.createClass({
+var HelloDelete = React.createClass({
   getInitialState: function() {
     return {display: true };
   },
@@ -29,18 +29,23 @@ var Hello = React.createClass({
   }
 });
 var HelloTable = React.createClass({
+  handleClick() {
+
+  },
+
   render: function() {
     var rows = [];
     this.props.helloes.forEach(function(hello) {
-      rows.push(<Hello hello={hello} />);
+      rows.push(<HelloDelete hello={hello} />);
     });
     return (
       <div className="container">
           <table className="table table-striped">
             <thead>
               <tr>
-                <th>User Name</ th>
+                <th>User Name</th>
                 <th>Message</th>
+                <th><button className="btn btn-success" onClick={this.handleClick}>+</button></th>
               </tr>
             </thead>
             <tbody>{rows}</tbody>
@@ -69,7 +74,12 @@ var App = React.createClass({
   },
 
   render() {
-    return ( <HelloTable helloes={this.state.helloes}/> );
+    return (
+        <div className="container">
+            <h2>Users</h2>
+            <HelloTable helloes={this.state.helloes}/>
+        </div>
+        );
   }
 });
 ReactDOM.render(<App />, document.getElementById('root') );

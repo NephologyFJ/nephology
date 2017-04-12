@@ -41,16 +41,18 @@ var HelloInput = React.createClass({
   render: function() {
     return (
         <div className="container">
-        <form className ="form" onSubmit={this.handleSubmit}>
-            <label>
-                Your Name:&emsp;
-                <input type="text" name="userName" id='userName' value={this.state.value} onChange={this.handleChange}/>
-            </label>&emsp;
-            <label>
-                Message:&emsp;
-                <input type="text" name="message" id='message' value={this.state.value} onChange={this.handleChange}/>
-            </label>&emsp;
-            <input type="submit" id='saveName' className="btn btn-success" value="Submit"/>
+        <form className ="form-horizontal" onSubmit={this.handleSubmit}>
+            <div>
+                <label>
+                    Your Name:&emsp;
+                    <input type="text" name="userName" id='userName' value={this.state.value} onChange={this.handleChange}/>
+                </label>&emsp;
+                <label>
+                    Message:&emsp;
+                    <input type="text" name="message" id='message' value={this.state.value} onChange={this.handleChange}/>
+                </label>&emsp;
+                <input type="submit" id='saveName' className="btn btn-success" value="Submit"/>
+            </div>
         </form>
         </div>
     );

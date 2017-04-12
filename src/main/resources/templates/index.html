@@ -4,8 +4,17 @@
     <title>React + Spring</title>
 </head>
 <body>
+<div id="header" class="container">
+    <h1>Nephology</h1>
+    <div>
+        <form action="/logout" method="post">
+                <input class="btn btn-danger center-block"  type="submit" value="Logout" />
+        </form>
+    </div>
+</div>
 <div id='root'></div>
 <div id='root2'></div>
+<div id='root3'></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react.min.js"></script>
 <script src="https://fb.me/react-dom-15.0.1.js"></script>
@@ -18,13 +27,6 @@
 
 <script type="text/babel" src="/public/app1.js"></script>
 <script type="text/babel" src="/public/app2.js"></script>
-
-<br />
-<div class='container'>
-    <div id='logoutBtn'></div>
-    <form action="/logout" method="post">
-        <input class="btn btn-danger center-block" type="submit" value="Logout" />
-    </form>
-</div>
+<script type="text/babel" src="/public/instances.js"></script>
 </body>
 </html>
