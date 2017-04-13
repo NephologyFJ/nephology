@@ -1,4 +1,4 @@
-package nephology.properties;
+package org.nephology.properties;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

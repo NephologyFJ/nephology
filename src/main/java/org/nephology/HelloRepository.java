@@ -1,4 +1,4 @@
-package nephology;
+package org.nephology;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.security.access.prepost.PreAuthorize;

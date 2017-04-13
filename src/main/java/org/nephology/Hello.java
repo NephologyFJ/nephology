@@ -1,4 +1,4 @@
-package nephology;
+package org.nephology;
 
 import org.springframework.data.annotation.Id;
 

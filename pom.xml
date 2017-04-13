@@ -46,7 +46,7 @@
                             <goal>repackage</goal>
                         </goals>
                         <configuration>
-                            <mainClass>nephology.Application</mainClass>
+                            <mainClass>org.nephology.Application</mainClass>
                         </configuration>
                     </execution>
                 </executions>

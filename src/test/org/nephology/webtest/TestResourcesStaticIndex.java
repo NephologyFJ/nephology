@@ -1,4 +1,4 @@
-package nephology.webtest;
+package org.nephology.webtest;
 
 import org.junit.AfterClass;
 import org.junit.Assert;

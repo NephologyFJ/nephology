@@ -1,4 +1,4 @@
-package nephology.aws.ec2;
+package org.nephology.aws.ec2;
 
 import java.util.ArrayList;
 import java.util.List;

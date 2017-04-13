@@ -1,4 +1,4 @@
-package nephology.aws.ec2.domain;
+package org.nephology.aws.ec2.domain;
 
 import com.amazonaws.services.ec2.model.Instance;
 import org.springframework.data.annotation.Id;

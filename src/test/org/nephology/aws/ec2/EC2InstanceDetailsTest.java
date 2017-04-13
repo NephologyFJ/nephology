@@ -1,4 +1,4 @@
-package nephology.aws.ec2;
+package org.nephology.aws.ec2;
 
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
