@@ -8,14 +8,7 @@ import org.springframework.data.annotation.Id;
  */
 public class AwsEC2InstanceDetailsData {
 
-    public AwsEC2InstanceDetailsData(Instance instance) {
-        this.instanceId = instance.getInstanceId();
-        this.imageId = instance.getImageId();
-        this.keyName = instance.getKeyName();
-        this.instanceType = instance.getInstanceType();
-        this.subnetId = instance.getSubnetId();
-        this.privateIpAddress = instance.getPrivateIpAddress();
-        this.publicIpAddress = instance.getPublicIpAddress();
+    public AwsEC2InstanceDetailsData() {
     }
 
     @Id
@@ -83,5 +76,19 @@ public class AwsEC2InstanceDetailsData {
 
     public void setPublicIpAddress(String publicIpAddress) {
         this.publicIpAddress = publicIpAddress;
+    }
+
+    @Override
+    public String toString() {
+        return "AwsEC2InstanceDetailsData{" +
+                "id='" + id + '\'' +
+                ", instanceId='" + instanceId + '\'' +
+                ", imageId='" + imageId + '\'' +
+                ", keyName='" + keyName + '\'' +
+                ", instanceType='" + instanceType + '\'' +
+                ", subnetId='" + subnetId + '\'' +
+                ", privateIpAddress='" + privateIpAddress + '\'' +
+                ", publicIpAddress='" + publicIpAddress + '\'' +
+                '}';
     }
 }

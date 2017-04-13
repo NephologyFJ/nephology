@@ -46,17 +46,17 @@ public class Application implements CommandLineRunner {
         logger.info(cpr.getSample());
         logger.info("************");
 
-        this.repository.save(new Hello("User1","Hello1"));
-        this.repository.save(new Hello("User2","Hello2"));
-        this.repository.save(new Hello("User3","Hello3"));
-        this.repository.save(new Hello("User4","Hello4"));
+        this.helloRepository.save(new Hello("User1","Hello1"));
+        this.helloRepository.save(new Hello("User2","Hello2"));
+        this.helloRepository.save(new Hello("User3","Hello3"));
+        this.helloRepository.save(new Hello("User4","Hello4"));
 
         retrieveAwsInstancesAndSaveInDb();
     }
 
     private String saveInDbAndReturn(String userName, String message) {
-        repository.save(new Hello(userName,message));
-        Hello fromDb = repository.findByMessage(message);
+        helloRepository.save(new Hello(userName,message));
+        Hello fromDb = helloRepository.findByMessage(message);
         return fromDb.getMessage() + "from DB!";
     }
 
@@ -65,7 +65,14 @@ public class Application implements CommandLineRunner {
         List<Instance> allInstances = ec2Details.getAllInstances();
 
         for (Instance retrievedInstance : allInstances) {
-            AwsEC2InstanceDetailsData convertedInstance = new AwsEC2InstanceDetailsData(retrievedInstance);
+            AwsEC2InstanceDetailsData convertedInstance = new AwsEC2InstanceDetailsData();
+            convertedInstance.setImageId(retrievedInstance.getImageId());
+            convertedInstance.setInstanceId(retrievedInstance.getInstanceId());
+            convertedInstance.setKeyName(retrievedInstance.getKeyName());
+            convertedInstance.setInstanceType(retrievedInstance.getInstanceType());
+            convertedInstance.setPrivateIpAddress(retrievedInstance.getPrivateIpAddress());
+            convertedInstance.setPublicIpAddress(retrievedInstance.getPublicIpAddress());
+            convertedInstance.setSubnetId(retrievedInstance.getSubnetId());
             awsRepository.save(convertedInstance);
         }
     }
