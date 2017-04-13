@@ -5,6 +5,7 @@ import java.util.List;
 import com.amazonaws.services.ec2.model.Instance;
 import org.nephology.aws.ec2.EC2InstanceDetails;
 import org.nephology.aws.ec2.domain.AwsEC2InstanceDetailsData;
+import org.nephology.aws.ec2.domain.AwsEC2InstanceDetailsDataRepository;
 import org.nephology.properties.CustomPropertyReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
