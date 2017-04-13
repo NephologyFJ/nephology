@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.amazonaws.services.ec2.model.Instance;
 import org.nephology.aws.ec2.EC2InstanceDetails;
-import org.nephology.aws.ec2.domain.AwsEC2InstanceDetailsData;
+import org.nephology.aws.ec2.domain.AwsEC2InstanceDetailsConverter;
 import org.nephology.aws.ec2.domain.AwsEC2InstanceDetailsDataRepository;
 import org.nephology.properties.CustomPropertyReader;
 import org.slf4j.Logger;
@@ -66,15 +66,7 @@ public class Application implements CommandLineRunner {
         List<Instance> allInstances = ec2Details.getAllInstances();
 
         for (Instance retrievedInstance : allInstances) {
-            AwsEC2InstanceDetailsData convertedInstance = new AwsEC2InstanceDetailsData();
-            convertedInstance.setImageId(retrievedInstance.getImageId());
-            convertedInstance.setInstanceId(retrievedInstance.getInstanceId());
-            convertedInstance.setKeyName(retrievedInstance.getKeyName());
-            convertedInstance.setInstanceType(retrievedInstance.getInstanceType());
-            convertedInstance.setPrivateIpAddress(retrievedInstance.getPrivateIpAddress());
-            convertedInstance.setPublicIpAddress(retrievedInstance.getPublicIpAddress());
-            convertedInstance.setSubnetId(retrievedInstance.getSubnetId());
-            awsRepository.save(convertedInstance);
+            awsRepository.save(AwsEC2InstanceDetailsConverter.convert(retrievedInstance));
         }
     }
 
