@@ -1,4 +1,4 @@
-package org.nephology.aws.ec2;
+package org.nephology.aws.ec2.client;
 
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentialsProvider;
@@ -9,57 +9,18 @@ import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
 import org.nephology.properties.CustomPropertyReader;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
- * Created by PLGrubskiM on 2017-04-06.
+ * Created by PLGrubskiM on 2017-04-14.
  */
-@Component
-public class EC2ClientProvider {
-
-    private static final String REGION_DEFAULT = "us-west-2";
+@Service
+public class EC2ClientFactory {
 
     @Autowired
     private CustomPropertyReader cpr;
 
-    private String accessKey;
-    private String secretKey;
-    private String region;
-
-    public EC2ClientProvider() {
-        this.region = REGION_DEFAULT;
-    }
-
-    public EC2ClientProvider(String region) {
-        this.region = region;
-    }
-
-    public EC2ClientProvider(String accessKey, String secretKey) {
-        this.region = REGION_DEFAULT;
-        this.accessKey = accessKey;
-        this.secretKey = secretKey;
-    }
-
-    public EC2ClientProvider(String accessKey, String secretKey, String region) {
-        this.accessKey = accessKey;
-        this.secretKey = secretKey;
-        this.region = region;
-    }
-
-    /**
-     * @return suitable AmazonEC2 client based on available credentials.
-     * If accessKey and secret are provided, they are used.
-     * If not, these are taken from AwsCredentials.properties file.
-     */
-    protected AmazonEC2 getClient() {
-        if (credentialsEmpty()) {
-            return getClasspathClient();
-        } else {
-            return getStaticClient();
-        }
-    }
-
-    protected AmazonEC2 getClasspathClient() {
+    protected AmazonEC2 getClasspathClient(String region) {
         AWSCredentialsProvider credentials = getClasspathCredentials();
         AmazonEC2 client;
         if (cpr.isUseAwsProxy()) {
@@ -79,9 +40,9 @@ public class EC2ClientProvider {
         return client;
     }
 
-    protected AmazonEC2 getStaticClient() {
+    protected AmazonEC2 getStaticClient(String region, String accessKey, String secretKey) {
         AmazonEC2 client;
-        BasicAWSCredentials credentials = getBasicAWSCredentials();
+        BasicAWSCredentials credentials = getBasicAWSCredentials(accessKey, secretKey);
         if (cpr.isUseAwsProxy()) {
             client = AmazonEC2ClientBuilder.standard()
                     .withCredentials(new AWSStaticCredentialsProvider(credentials))
@@ -98,7 +59,7 @@ public class EC2ClientProvider {
         return client;
     }
 
-    protected BasicAWSCredentials getBasicAWSCredentials() {
+    protected BasicAWSCredentials getBasicAWSCredentials(String accessKey, String secretKey) {
         return new BasicAWSCredentials(accessKey, secretKey);
     }
 
@@ -111,39 +72,5 @@ public class EC2ClientProvider {
         clientConfiguration.setProxyHost(cpr.getProxyHost());
         clientConfiguration.setProxyPort(cpr.getProxyPort());
         return clientConfiguration;
-    }
-
-    public String getAccessKey() {
-        return accessKey;
-    }
-
-    public void setAccessKey(String accessKey) {
-        this.accessKey = accessKey;
-    }
-
-    public String getSecretKey() {
-        return secretKey;
-    }
-
-    public void setSecretKey(String secretKey) {
-        this.secretKey = secretKey;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    private boolean credentialsEmpty() {
-        if (accessKey == null || secretKey == null) {
-            return true;
-        }
-        if (accessKey.length() <= 0 && secretKey.length() <= 0) {
-            return true;
-        }
-        return false;
     }
 }
