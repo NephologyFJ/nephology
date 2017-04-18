@@ -40,19 +40,19 @@ public class CustomPropertyReader {
     /**
      * Key for AWS access
      */
-    @Value("${aws.key?:}")
+    @Value("${aws.key:}")
     private String awsKey;
 
     /**
      * Secret for AWS access
      */
-    @Value("${aws.secret?:}")
+    @Value("${aws.secret:}")
     private String awsSecret;
 
     /**
      * Region for AWS access
      */
-    @Value("${aws.region?:}")
+    @Value("${aws.region:}")
     private String awsRegion;
 
     public String getSample() {
