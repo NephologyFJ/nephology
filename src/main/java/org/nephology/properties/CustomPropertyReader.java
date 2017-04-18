@@ -34,7 +34,7 @@ public class CustomPropertyReader {
     /**
      * Proxy port for AWS client
      */
-    @Value("${aws.proxyPort:0}")
+    @Value("${aws.proxyPort:}")
     private int awsProxyPort;
 
     /**
