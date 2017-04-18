@@ -3,7 +3,7 @@ package org.nephology;
 import java.util.List;
 
 import com.amazonaws.services.ec2.model.Instance;
-import org.nephology.aws.ec2.EC2InstanceDetails;
+import org.nephology.aws.ec2.EC2Service;
 import org.nephology.aws.ec2.domain.AwsEC2InstanceDetailsConverter;
 import org.nephology.aws.ec2.domain.AwsEC2InstanceDetailsDataRepository;
 import org.nephology.properties.CustomPropertyReader;
@@ -29,7 +29,7 @@ public class Application implements CommandLineRunner {
     private CustomPropertyReader cpr;
 
     @Autowired
-    private EC2InstanceDetails ec2Details;
+    private EC2Service ec2Service;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -63,8 +63,7 @@ public class Application implements CommandLineRunner {
 
     private void retrieveAwsInstancesAndSaveInDb() {
         awsRepository.deleteAll();
-        List<Instance> allInstances = ec2Details.getAllInstances();
-
+        List<Instance> allInstances = ec2Service.getAllInstances();
         for (Instance retrievedInstance : allInstances) {
             awsRepository.save(AwsEC2InstanceDetailsConverter.convert(retrievedInstance));
         }

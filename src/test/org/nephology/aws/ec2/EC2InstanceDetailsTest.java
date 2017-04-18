@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
  */
 public class EC2InstanceDetailsTest {
 //
-//    EC2InstanceDetails ec2Details;
+//    EC2Service ec2Details;
 //    EC2ClientProvider ec2ClientProvider;
 //
 //    private int numberOfRetrievedReservations = 1;
@@ -31,7 +31,7 @@ public class EC2InstanceDetailsTest {
 //    @Before
 //    public void setUp() {
 //        ec2ClientProvider = mock(EC2ClientProvider.class);
-//        ec2Details = new EC2InstanceDetails(ec2ClientProvider);
+//        ec2Details = new EC2Service(ec2ClientProvider);
 //    }
 //
 //    @Test
@@ -61,12 +61,12 @@ public class EC2InstanceDetailsTest {
 //    @Test
 //    public void defaultRegionTest() {
 //        // given
-//        ec2Details = new EC2InstanceDetails();
+//        ec2Details = new EC2Service();
 //        // when
-//        final String defaultRegion = ec2Details.getRegion();
+//        final String defaultRegion = ec2Details.getAwsRegion();
 //        final String secondRegion = "newRegion";
-//        ec2Details.setRegion(secondRegion);
-//        final String regionAfterChange = ec2Details.getRegion();
+//        ec2Details.setAwsRegion(secondRegion);
+//        final String regionAfterChange = ec2Details.getAwsRegion();
 //        // then
 //        assertTrue(defaultRegion.equals("us-west-2"));
 //        assertTrue(regionAfterChange.equals("newRegion"));

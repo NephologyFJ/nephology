@@ -39,23 +39,7 @@ public class EC2ClientProvider {
             logger.info("EC2ClientProvider.getClient():AWS region not provided, falling back to the default value: " + REGION_DEFAULT);
             region = REGION_DEFAULT;
         }
-        if (credentialsEmpty()) {
-            logger.info("EC2ClientProvider.getClient():AWS credentials not provided, falling back to the value from property files.");
-            return factory.getClasspathClient(region);
-        } else {
-            logger.info("EC2ClientProvider.getClient():using provided AWS credentials and region: " + region);
-            return factory.getStaticClient(region, accessKey, secretKey);
-        }
-    }
-
-    private boolean credentialsEmpty() {
-        if (accessKey == null || secretKey == null) {
-            return true;
-        }
-        if (accessKey.length() <= 0 && secretKey.length() <= 0) {
-            return true;
-        }
-        return false;
+        return factory.getStaticClient(region, accessKey, secretKey);
     }
 
     public String getAccessKey() {
