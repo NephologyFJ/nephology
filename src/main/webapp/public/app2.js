@@ -1,25 +1,22 @@
+<script type="text/babel">
 var HelloInput = React.createClass({
 
-   handleSubmit: function (e){
-   var self = this;
+   submit: function (e){
+   var self
 
    e.preventDefault()
+   self = this
 
    var data = {
     userName: this.state.userName,
     message: this.state.message
    }
 
+   var self = this;
    $.ajax({
     url: "/api/helloes",
     type: 'POST',
     data: data,
-    success: function(result) {
-        self.setState({display: false});
-    },
-    error: function(xhr, ajaxOptions, thrownError) {
-        toastr.error(xhr.responseJSON.message);
-     }
     })
     .done(function(data) {
         self.clearForm()
@@ -35,17 +32,15 @@ var HelloInput = React.createClass({
 
   render: function() {
     return (
-        <div className="container">
-        <form className ="form" onSubmit={this.handleSubmit}>
-            <label>
-                Your Name:&emsp;
-                <input type="text" name="userName" id='userName'/>
-            </label>&emsp;
-            <label>
-                Message:&emsp;
+        <div className="toast-container div rtl">
+        <form onSubmit={this.submit}>
+            <label class="toast-message">Your Name:&emsp;
+                <input type="text" name="userName" class="toast-message" id='userName'/>
+            </label><br />
+            <label class="toast-message">Message:&emsp;
                 <input type="text" name="message" id='message'/>
-            </label>&emsp;
-            <input type="submit" id='saveName' className="btn btn-success" value="Submit"/>
+            </label><br />
+            <input type="submit" id='saveName' className="btn btn-info" value="Submit"/>
         </form>
         </div>
     );
@@ -55,3 +50,4 @@ var HelloInput = React.createClass({
 ReactDOM.render(
   <HelloInput />, document.getElementById('root2')
 );
+</script>
