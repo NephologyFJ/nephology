@@ -22,37 +22,37 @@ public class CustomPropertyReader {
     /**
      * Use proxy when creating AWS client
      */
-    @Value("${aws.useProxy:false}")
+    @Value("${aws.useProxy?:false}")
     private boolean useAwsProxy;
 
     /**
      * Proxy host for AWS client
      */
-    @Value("${aws.proxyHost:}")
+    @Value("${aws.proxyHost?:}")
     private String awsProxyHost;
 
     /**
      * Proxy port for AWS client
      */
-    @Value("${aws.proxyPort:}")
+    @Value("${aws.proxyPort?:0}")
     private int awsProxyPort;
 
     /**
      * Key for AWS access
      */
-    @Value("${aws.key:}")
+    @Value("${aws.key?:}")
     private String awsKey;
 
     /**
      * Secret for AWS access
      */
-    @Value("${aws.secret:}")
+    @Value("${aws.secret?:}")
     private String awsSecret;
 
     /**
      * Region for AWS access
      */
-    @Value("${aws.region:}")
+    @Value("${aws.region?:}")
     private String awsRegion;
 
     public String getSample() {

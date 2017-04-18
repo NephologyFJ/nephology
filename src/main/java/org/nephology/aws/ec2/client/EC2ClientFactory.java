@@ -43,8 +43,16 @@ public class EC2ClientFactory {
 
     protected ClientConfiguration getClientConfiguration() {
         ClientConfiguration clientConfiguration = new ClientConfiguration();
-        clientConfiguration.setProxyHost(cpr.getAwsProxyHost());
-        clientConfiguration.setProxyPort(cpr.getAwsProxyPort());
+        final String awsProxyHost = cpr.getAwsProxyHost();
+        final int awsProxyPort = cpr.getAwsProxyPort();
+        if (awsProxyHost == null || awsProxyHost.isEmpty()) {
+            // TODO: 2017-04-18 add exception
+        }
+        if (awsProxyPort == 0) {
+            // TODO: 2017-04-18 add exception
+        }
+        clientConfiguration.setProxyHost(awsProxyHost);
+        clientConfiguration.setProxyPort(awsProxyPort);
         return clientConfiguration;
     }
 }
