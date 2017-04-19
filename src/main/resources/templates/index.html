@@ -4,13 +4,19 @@
     <title>React + Spring</title>
 </head>
 <body>
-<p th:text="#{some.message}"></p>
 <div id="header" class="container">
-    <h1>Nephology</h1>
-    <div>
-        <form action="/logout" method="post">
-                <input class="btn btn-danger center-block"  type="submit" value="Logout" />
-        </form>
+    <div class="row">
+        <p th:text="#{some.message}"></p>
+    </div>
+    <div class="col-xs-12">
+        <div class="col-xs-9">
+            <h1>Nephology</h1>
+        </div>
+        <div class="col-xs-3">
+            <form action="/logout" method="post">
+                    <input class="btn btn-danger center-block"  type="submit" value="Logout" />
+            </form>
+        </div>
     </div>
 </div>
 <div id='root'></div>
