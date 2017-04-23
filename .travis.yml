@@ -21,4 +21,4 @@ script:
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
 
 after_success:
- - bash <(curl -s https://codecov.io/bash) -t repository-upload-token
+ - bash <(curl -s https://codecov.io/bash)
