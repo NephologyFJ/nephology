@@ -1,0 +1,24 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Instances</h3>
+  </div>
+  <div class="panel-body">
+    <div className="container">
+      <table className="table table-striped">
+        <thead>
+        <tr>
+          <th>Instance ID</th>
+          <th>Image ID</th>
+          <th>Key Name</th>
+          <th>Instance Type</th>
+          <th>Subnet ID</th>
+          <th>Private IP Address</th>
+          <th>Public IP Address</th>
+        </tr>
+        </thead>
+        <tbody *ngfor="let VM of VMs">instance</tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
