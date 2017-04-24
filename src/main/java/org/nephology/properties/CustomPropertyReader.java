@@ -55,6 +55,24 @@ public class CustomPropertyReader {
     @Value("${aws.region:}")
     private String awsRegion;
 
+    /**
+     * Client key for Azure access
+     */
+    @Value("${azure.key}")
+    private String azureKey;
+
+    /**
+     * Client secret for Azure access
+     */
+    @Value("${azure.secret}")
+    private String azureSecret;
+
+    /**
+     * Tenant ID for Azure access
+     */
+    @Value("${azure.tenantId}")
+    private String azureTenantId;
+
     public String getSample() {
         return sample;
     }
@@ -109,5 +127,29 @@ public class CustomPropertyReader {
 
     public void setAwsRegion(String awsRegion) {
         this.awsRegion = awsRegion;
+    }
+
+    public String getAzureKey() {
+        return azureKey;
+    }
+
+    public void setAzureKey(String azureKey) {
+        this.azureKey = azureKey;
+    }
+
+    public String getAzureSecret() {
+        return azureSecret;
+    }
+
+    public void setAzureSecret(String azureSecret) {
+        this.azureSecret = azureSecret;
+    }
+
+    public String getAzureTenantId() {
+        return azureTenantId;
+    }
+
+    public void setAzureTenantId(String azureTenantId) {
+        this.azureTenantId = azureTenantId;
     }
 }
