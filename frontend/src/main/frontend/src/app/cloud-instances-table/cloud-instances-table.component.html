@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+          <h3 class="panel-title">Instances</h3>
+        </div>
+
+        <div class="panel-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Instance ID</th>
+                <th>Image ID</th>
+                <th>Key Name</th>
+                <th>Instance Type</th>
+                <th>Subnet ID</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cloudInstance of cloudInstances">
+                <th scope="row">{{cloudInstance.instanceId}}</th>
+                <td>{{cloudInstance.imageId}}</td>
+                <td>{{cloudInstance.keyName}}</td>
+                <td>{{cloudInstance.instanceType}}</td>
+                <td>{{cloudInstance.subnetId}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,14 +4,16 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { InstancesComponent } from './instances/instances.component';
-import { InstanceComponent } from './instance/instance.component';
+import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
+import { CloudInstanceComponent } from './cloud-instance/cloud-instance.component';
+import { CloudInstancesTableComponent } from './cloud-instances-table/cloud-instances-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    InstancesComponent,
-    InstanceComponent
+    NavigationBarComponent,
+    CloudInstanceComponent,
+    CloudInstancesTableComponent
   ],
   imports: [
     BrowserModule,
