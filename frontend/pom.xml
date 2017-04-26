@@ -42,6 +42,17 @@
                     </execution>
 
                     <execution>
+                      <id>npm install angular-stormpath</id>
+                      <goals>
+                          <goal>npm</goal>
+                      </goals>
+
+                      <configuration>
+                          <arguments>install angular-stormpath --save</arguments>
+                      </configuration>
+                    </execution>
+
+                    <execution>
                         <id>npm run build</id>
                         <goals>
                             <goal>npm</goal>

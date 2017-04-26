@@ -1,2 +1,14 @@
-<app-navigation-bar></app-navigation-bar>
-<app-cloud-instances-table></app-cloud-instances-table>
+<div *ngIf="(user$ | async)" class="row text-center">
+  <h2 class="">
+    Welcome, ({{ ( user$ | async ).fullName }}).
+  </h2>
+  <hr/>
+  <h4>What would you like to do?</h4>
+  <app-navigation-bar></app-navigation-bar>
+  <app-cloud-instances-table></app-cloud-instances-table>
+  <ul class="nav nav-pills nav-stacked text-centered">
+    <li role="presentation" (click)="logout()"><a href="#">Logout</a></li>
+  </ul>
+</div>
+
+<sp-authport></sp-authport>
