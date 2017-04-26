@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { CloudInstanceComponent } from './cloud-instance/cloud-instance.component';
 import { CloudInstancesTableComponent } from './cloud-instances-table/cloud-instances-table.component';
+import { CloudsService } from './clouds.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { CloudInstancesTableComponent } from './cloud-instances-table/cloud-inst
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [CloudsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
