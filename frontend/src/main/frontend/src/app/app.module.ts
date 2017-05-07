@@ -6,9 +6,9 @@ import { StormpathModule } from 'angular-stormpath';
 
 import { AppComponent } from './app.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
-import { CloudInstanceComponent } from './cloud-instance/cloud-instance.component';
 import { CloudInstancesTableComponent } from './cloud-instances-table/cloud-instances-table.component';
-import { CloudsService } from './clouds.service';
+import { CloudsService } from './services/clouds.service';
+import { CloudInstanceService} from './services/cloud-instance.service';
 
 
 
@@ -16,7 +16,6 @@ import { CloudsService } from './clouds.service';
   declarations: [
     AppComponent,
     NavigationBarComponent,
-    CloudInstanceComponent,
     CloudInstancesTableComponent
   ],
   imports: [
@@ -25,7 +24,7 @@ import { CloudsService } from './clouds.service';
     HttpModule,
     StormpathModule
   ],
-  providers: [CloudsService],
+  providers: [CloudsService, CloudInstanceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

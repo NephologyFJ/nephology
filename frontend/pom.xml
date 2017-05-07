@@ -46,9 +46,38 @@
                       <goals>
                           <goal>npm</goal>
                       </goals>
-
                       <configuration>
                           <arguments>install angular-stormpath --save</arguments>
+                      </configuration>
+                    </execution>
+
+                    <execution>
+                      <id>npm install bootstrap</id>
+                      <goals>
+                          <goal>npm</goal>
+                      </goals>
+                      <configuration>
+                          <arguments>install bootstrap@3 --save</arguments>
+                      </configuration>
+                    </execution>
+
+                    <execution>
+                      <id>npm install jquery</id>
+                      <goals>
+                          <goal>npm</goal>
+                      </goals>
+                      <configuration>
+                          <arguments>install jquery --save</arguments>
+                      </configuration>
+                    </execution>
+
+                    <execution>
+                      <id>npm install jquery types</id>
+                      <goals>
+                          <goal>npm</goal>
+                      </goals>
+                      <configuration>
+                          <arguments>install @types/jquery --save-dev</arguments>
                       </configuration>
                     </execution>
 
@@ -57,11 +86,11 @@
                         <goals>
                             <goal>npm</goal>
                         </goals>
-
                         <configuration>
                             <arguments>run build</arguments>
                         </configuration>
                     </execution>
+
                 </executions>
             </plugin>
         </plugins>

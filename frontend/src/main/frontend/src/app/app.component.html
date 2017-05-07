@@ -1,15 +1,6 @@
 <div class="container">
-  <div class="col-xs-12">
-    <div *ngIf="(user$ | async)" class="row">
-      <div class="col-xs-11">
-        <p class="">
-          Welcome, {{ ( user$ | async ).fullName }}
-        </p>
-      </div>
-      <div class="col-xs-1">
-        <a class="btn btn-danger btn-xs" role="button" (click)="logout()" href="#">Logout</a>
-      </div>
-      <hr/>
+  <div *ngIf="(user$ | async)" class="row">
+    <div class="col-xs-12">
       <app-navigation-bar></app-navigation-bar>
       <app-cloud-instances-table></app-cloud-instances-table>
     </div>

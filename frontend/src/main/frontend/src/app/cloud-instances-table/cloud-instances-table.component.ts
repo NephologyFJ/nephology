@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { CloudInstanceComponent } from '../cloud-instance/cloud-instance.component';
-import { CloudsService } from '../clouds.service';
+import { CloudsService } from '../services/clouds.service';
 import { Response } from '@angular/http';
+import { CloudInstanceService } from '../services/cloud-instance.service'
 
 @Component({
   selector: 'app-cloud-instances-table',
@@ -10,11 +10,11 @@ import { Response } from '@angular/http';
 
 export class CloudInstancesTableComponent {
 
-  clouds: CloudInstanceComponent[];
-
-  constructor(private cloudsService: CloudsService) {
+  constructor(private cloudsService: CloudsService, private cloudInstanceService: CloudInstanceService) {
     this.getCloudsInstances();
   }
+
+  clouds: CloudInstanceService[];
 
   getCloudsInstances() { this.cloudsService.getClouds().subscribe(
       (response) => {
