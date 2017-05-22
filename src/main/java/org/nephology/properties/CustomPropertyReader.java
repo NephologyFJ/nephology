@@ -56,7 +56,7 @@ public class CustomPropertyReader {
     private String awsRegion;
 
     /**
-     * Client key for Azure access
+     * Client key (ID) for Azure access
      */
     @Value("${azure.key}")
     private String azureKey;
@@ -72,6 +72,12 @@ public class CustomPropertyReader {
      */
     @Value("${azure.tenantId}")
     private String azureTenantId;
+
+    /**
+     * Subscription ID for Azure access
+     */
+    @Value("${azure.subscriptionId}")
+    private String azureSubscriptionId;
 
     public String getSample() {
         return sample;
@@ -151,5 +157,13 @@ public class CustomPropertyReader {
 
     public void setAzureTenantId(String azureTenantId) {
         this.azureTenantId = azureTenantId;
+    }
+
+    public String getAzureSubscriptionId() {
+        return azureSubscriptionId;
+    }
+
+    public void setAzureSubscriptionId(String azureSubscriptionId) {
+        this.azureSubscriptionId = azureSubscriptionId;
     }
 }

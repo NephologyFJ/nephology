@@ -7,6 +7,9 @@ import com.amazonaws.services.ec2.model.Instance;
 import org.nephology.aws.ec2.EC2Service;
 import org.nephology.aws.ec2.domain.AwsEC2InstanceDetailsConverter;
 import org.nephology.aws.ec2.domain.AwsEC2InstanceDetailsDataRepository;
+import org.nephology.azure.computemanagement.AzureManagementService;
+import org.nephology.azure.computemanagement.domain.AzureVirtualMachineData;
+import org.nephology.azure.computemanagement.domain.AzureVirtualMachineDataRepository;
 import org.nephology.properties.CustomPropertyReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,10 +36,16 @@ public class Application extends WebMvcConfigurerAdapter implements CommandLineR
     private AwsEC2InstanceDetailsDataRepository awsRepository;
 
     @Autowired
+    private AzureVirtualMachineDataRepository azureRepository;
+
+    @Autowired
     private CustomPropertyReader cpr;
 
     @Autowired
     private EC2Service ec2Service;
+
+    @Autowired
+    private AzureManagementService azureService;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -60,6 +69,7 @@ public class Application extends WebMvcConfigurerAdapter implements CommandLineR
         this.helloRepository.save(new Hello("User4","Hello4"));
 
         retrieveAwsInstancesAndSaveInDb();
+        retrieveAzureInstancesAndSaveInDb();
     }
 
     private String saveInDbAndReturn(String userName, String message) {
@@ -73,6 +83,14 @@ public class Application extends WebMvcConfigurerAdapter implements CommandLineR
         List<Instance> allInstances = ec2Service.getAllInstances();
         for (Instance retrievedInstance : allInstances) {
             awsRepository.save(AwsEC2InstanceDetailsConverter.convert(retrievedInstance));
+        }
+    }
+
+    private void retrieveAzureInstancesAndSaveInDb() {
+        azureRepository.deleteAll();
+        final List<AzureVirtualMachineData> azureVirtualMachineDatas = azureService.listAllVirtualMachines();
+        for (AzureVirtualMachineData retrievedInstance : azureVirtualMachineDatas) {
+            azureRepository.save(retrievedInstance);
         }
     }
     @Bean

@@ -19,9 +19,6 @@ public class EC2ClientProvider {
     private static final String REGION_DEFAULT = "us-west-2";
 
     @Autowired
-    private CustomPropertyReader cpr;
-
-    @Autowired
     private EC2ClientFactory factory;
 
     private String accessKey;

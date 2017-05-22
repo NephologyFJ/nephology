@@ -118,5 +118,10 @@
             <artifactId>aws-java-sdk-ec2</artifactId>
             <version>1.11.113</version>
         </dependency>
+        <dependency>
+            <groupId>com.microsoft.azure</groupId>
+            <artifactId>azure</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 </project>

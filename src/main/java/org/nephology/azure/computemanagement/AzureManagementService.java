@@ -1,23 +1,23 @@
 package org.nephology.azure.computemanagement;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import javax.naming.ServiceUnavailableException;
 
-import com.microsoft.azure.management.compute.ComputeManagementClient;
-import com.microsoft.azure.management.compute.models.VirtualMachine;
+import com.microsoft.azure.PagedList;
+import com.microsoft.azure.management.compute.VirtualMachine;
 import org.nephology.azure.computemanagement.client.AzureClientProvider;
+import org.nephology.azure.computemanagement.domain.AzureVirtualMachineConverter;
+import org.nephology.azure.computemanagement.domain.AzureVirtualMachineData;
 import org.nephology.properties.CustomPropertyReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by PLGrubskiM on 2017-04-24.
  */
+@Component
 public class AzureManagementService {
 
     private final Logger logger = LoggerFactory.getLogger(AzureManagementService.class);
@@ -28,25 +28,28 @@ public class AzureManagementService {
     @Autowired
     private CustomPropertyReader cpr;
 
-    public List<VirtualMachine> getAllVirtualMachines() throws URISyntaxException, InterruptedException, IOException, ExecutionException, ServiceUnavailableException {
-        List<VirtualMachine> virtualMachines;
-        ComputeManagementClient client;
-        return virtualMachines;
+    public List<AzureVirtualMachineData> listAllVirtualMachines() {
+
+        prepareAzureClient();
+
+        final PagedList<VirtualMachine> list = azureClientProvider.getClient().virtualMachines().list();
+        List<AzureVirtualMachineData> resultList = new ArrayList<AzureVirtualMachineData>();
+        for (VirtualMachine azureVm : list) {
+            resultList.add(AzureVirtualMachineConverter.convert(azureVm));
+        }
+        return resultList;
     }
 
     private void prepareAzureClient() {
-
-        final String azureClientId = cpr.getAzureKey();
+        final String azureKey = cpr.getAzureKey();
         final String azureSecret = cpr.getAzureSecret();
         final String azureTenantId = cpr.getAzureTenantId();
+        final String azureSubscriptionId = cpr.getAzureSubscriptionId();
 
-        if (!azureClientId.isEmpty() && !azureSecret.isEmpty() && !azureTenantId.isEmpty()) {
-            azureClientProvider.setClientId(azureClientId);
-            azureClientProvider.setClientSecret(azureSecret);
-            azureClientProvider.setTenantId(azureTenantId);
-        } else {
-            logger.error("Azure credentials not provided");
-        }
+        azureClientProvider.setClient(azureKey);
+        azureClientProvider.setSecret(azureSecret);
+        azureClientProvider.setTenant(azureTenantId);
+        azureClientProvider.setSubscriptionId(azureSubscriptionId);
 
     }
 }
