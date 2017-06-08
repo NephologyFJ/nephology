@@ -7,6 +7,7 @@ import com.amazonaws.services.ec2.model.Instance;
 import org.nephology.aws.ec2.EC2Service;
 import org.nephology.aws.ec2.domain.AwsEC2InstanceDetailsConverter;
 import org.nephology.aws.ec2.domain.AwsEC2InstanceDetailsDataRepository;
+import org.nephology.aws.ec2.exception.EC2Exception;
 import org.nephology.azure.computemanagement.AzureManagementService;
 import org.nephology.azure.computemanagement.domain.AzureVirtualMachineData;
 import org.nephology.azure.computemanagement.domain.AzureVirtualMachineDataRepository;
@@ -76,7 +77,7 @@ public class Application implements CommandLineRunner {
         return fromDb.getMessage() + "from DB!";
     }
 
-    private void retrieveAwsInstancesAndSaveInDb() {
+    private void retrieveAwsInstancesAndSaveInDb() throws EC2Exception {
         awsRepository.deleteAll();
         List<Instance> allInstances = ec2Service.getAllInstances();
         for (Instance retrievedInstance : allInstances) {

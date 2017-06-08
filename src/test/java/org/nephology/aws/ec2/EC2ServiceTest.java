@@ -15,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.nephology.aws.ec2.client.EC2ClientProvider;
+import org.nephology.aws.ec2.exception.EC2Exception;
 import org.nephology.properties.CustomPropertyReader;
 
 import static org.mockito.Matchers.any;
@@ -51,7 +52,7 @@ public class EC2ServiceTest {
     }
 
     @Test
-    public void getAllInstancesTest() {
+    public void getAllInstancesTest() throws EC2Exception {
         // given
         prepareMocks();
         // when
@@ -60,8 +61,8 @@ public class EC2ServiceTest {
         Assert.assertTrue(allInstances.size() == 1);
     }
 
-    @Test
-    public void getAllInstancesTest_emptyKey() {
+    @Test(expected = EC2Exception.class)
+    public void getAllInstancesTest_emptyKey() throws EC2Exception {
         // given
         prepareMocks();
         when(cpr.getAwsKey()).thenReturn("");
@@ -71,8 +72,8 @@ public class EC2ServiceTest {
         Assert.assertTrue(allInstances.size() == 1);
     }
 
-    @Test
-    public void getAllInstancesTest_emptySecret() {
+    @Test(expected = EC2Exception.class)
+    public void getAllInstancesTest_emptySecret() throws EC2Exception {
         // given
         prepareMocks();
         when(cpr.getAwsSecret()).thenReturn("");
@@ -82,7 +83,7 @@ public class EC2ServiceTest {
         Assert.assertTrue(allInstances.size() == 1);
     }
 
-    private void prepareMocks() {
+    private void prepareMocks() throws EC2Exception {
         mockClient = mock(AmazonEC2.class);
         mockResponse = mock(DescribeInstancesResult.class);
         mockReservationsList = new ArrayList<Reservation>();

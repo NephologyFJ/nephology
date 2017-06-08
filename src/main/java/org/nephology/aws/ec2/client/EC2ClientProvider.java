@@ -2,6 +2,7 @@ package org.nephology.aws.ec2.client;
 
 import com.amazonaws.services.ec2.AmazonEC2;
 import org.nephology.Application;
+import org.nephology.aws.ec2.exception.EC2Exception;
 import org.nephology.properties.CustomPropertyReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,7 @@ public class EC2ClientProvider {
      * If accessKey and secret are set, they are used.
      * If not, these are taken from AwsCredentials.properties file.
      */
-    public AmazonEC2 getClient() {
+    public AmazonEC2 getClient() throws EC2Exception {
         if (region == null || region.isEmpty()) {
             logger.info("EC2ClientProvider.getClient():AWS region not provided, falling back to the default value: " + REGION_DEFAULT);
             region = REGION_DEFAULT;
