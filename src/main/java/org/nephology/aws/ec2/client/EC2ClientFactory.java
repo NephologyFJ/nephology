@@ -23,19 +23,27 @@ public class EC2ClientFactory {
         AmazonEC2 client;
         BasicAWSCredentials credentials = getBasicAWSCredentials(accessKey, secretKey);
         if (cpr.isUseAwsProxy()) {
-            client = AmazonEC2ClientBuilder.standard()
-                    .withCredentials(new AWSStaticCredentialsProvider(credentials))
-                    .withRegion(region)
-                    .withClientConfiguration(getClientConfigurationWithProxy())
-                    .build();
+            client = getClientWithProxy(region, credentials);
         } else {
-            client = AmazonEC2ClientBuilder.standard()
-                    .withCredentials(new AWSStaticCredentialsProvider(credentials))
-                    .withRegion(region)
-                    .build();
+            client = getClientWithoutProxy(region, credentials);
         }
 
         return client;
+    }
+
+    protected AmazonEC2 getClientWithoutProxy(String region, BasicAWSCredentials credentials) {
+        return AmazonEC2ClientBuilder.standard()
+                .withCredentials(new AWSStaticCredentialsProvider(credentials))
+                .withRegion(region)
+                .build();
+    }
+
+    protected AmazonEC2 getClientWithProxy(String region, BasicAWSCredentials credentials) throws EC2Exception {
+        return AmazonEC2ClientBuilder.standard()
+                .withCredentials(new AWSStaticCredentialsProvider(credentials))
+                .withRegion(region)
+                .withClientConfiguration(getClientConfigurationWithProxy())
+                .build();
     }
 
     protected BasicAWSCredentials getBasicAWSCredentials(String accessKey, String secretKey) {

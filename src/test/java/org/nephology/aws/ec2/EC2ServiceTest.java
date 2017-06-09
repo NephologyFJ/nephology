@@ -37,6 +37,7 @@ public class EC2ServiceTest {
     private EC2ClientProvider ec2ClientProvider;
 
     // Mocks (not autowired)
+
     AmazonEC2 mockClient;
     DescribeInstancesResult mockResponse;
     List<Reservation> mockReservationsList;
