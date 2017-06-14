@@ -9,6 +9,7 @@ import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Reservation;
 import org.nephology.aws.ec2.client.EC2ClientProvider;
+import org.nephology.aws.ec2.exception.EC2Exception;
 import org.nephology.properties.CustomPropertyReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,7 @@ public class EC2Service {
     public EC2Service() {
     }
 
-    public List<Instance> getAllInstances() {
+    public List<Instance> getAllInstances() throws EC2Exception {
 
         prepareAwsEC2Client();
 
@@ -62,7 +63,7 @@ public class EC2Service {
         return instanceList;
     }
 
-    private void prepareAwsEC2Client() {
+    private void prepareAwsEC2Client() throws EC2Exception {
 
         final String awsKey = cpr.getAwsKey();
         final String awsSecret = cpr.getAwsSecret();
@@ -72,9 +73,9 @@ public class EC2Service {
             ec2ClientProvider.setAccessKey(awsKey);
             ec2ClientProvider.setSecretKey(awsSecret);
         } else if (awsKey.isEmpty()) {
-            logger.warn("AWS access key was not provided");
+            throw new EC2Exception("AWS Key was not provided.");
         } else {
-            logger.warn("AWS secret key was not provided");
+            throw new EC2Exception("AWS Secret was not provided.");
         }
         if (!region.isEmpty()) {
             logger.info("connecting to AWS service with region: " + region);

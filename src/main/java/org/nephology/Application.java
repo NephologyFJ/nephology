@@ -7,6 +7,10 @@ import com.amazonaws.services.ec2.model.Instance;
 import org.nephology.aws.ec2.EC2Service;
 import org.nephology.aws.ec2.domain.AwsEC2InstanceDetailsConverter;
 import org.nephology.aws.ec2.domain.AwsEC2InstanceDetailsDataRepository;
+import org.nephology.aws.ec2.exception.EC2Exception;
+import org.nephology.azure.computemanagement.AzureManagementService;
+import org.nephology.azure.computemanagement.domain.AzureVirtualMachineData;
+import org.nephology.azure.computemanagement.domain.AzureVirtualMachineDataRepository;
 import org.nephology.properties.CustomPropertyReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,13 +20,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 @SpringBootApplication
-public class Application extends WebMvcConfigurerAdapter implements CommandLineRunner {
+public class Application implements CommandLineRunner {
 
     private final Logger logger = LoggerFactory.getLogger(Application.class);
 
@@ -33,10 +35,16 @@ public class Application extends WebMvcConfigurerAdapter implements CommandLineR
     private AwsEC2InstanceDetailsDataRepository awsRepository;
 
     @Autowired
+    private AzureVirtualMachineDataRepository azureRepository;
+
+    @Autowired
     private CustomPropertyReader cpr;
 
     @Autowired
     private EC2Service ec2Service;
+
+    @Autowired
+    private AzureManagementService azureService;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -59,7 +67,8 @@ public class Application extends WebMvcConfigurerAdapter implements CommandLineR
         this.helloRepository.save(new Hello("User3","Hello3"));
         this.helloRepository.save(new Hello("User4","Hello4"));
 
-        retrieveAwsInstancesAndSaveInDb();
+//        retrieveAwsInstancesAndSaveInDb();
+//        retrieveAzureInstancesAndSaveInDb();
     }
 
     private String saveInDbAndReturn(String userName, String message) {
@@ -68,11 +77,19 @@ public class Application extends WebMvcConfigurerAdapter implements CommandLineR
         return fromDb.getMessage() + "from DB!";
     }
 
-    private void retrieveAwsInstancesAndSaveInDb() {
+    private void retrieveAwsInstancesAndSaveInDb() throws EC2Exception {
         awsRepository.deleteAll();
         List<Instance> allInstances = ec2Service.getAllInstances();
         for (Instance retrievedInstance : allInstances) {
             awsRepository.save(AwsEC2InstanceDetailsConverter.convert(retrievedInstance));
+        }
+    }
+
+    private void retrieveAzureInstancesAndSaveInDb() {
+        azureRepository.deleteAll();
+        final List<AzureVirtualMachineData> azureVirtualMachineDatas = azureService.listAllVirtualMachines();
+        for (AzureVirtualMachineData retrievedInstance : azureVirtualMachineDatas) {
+            azureRepository.save(retrievedInstance);
         }
     }
     @Bean
@@ -87,11 +104,6 @@ public class Application extends WebMvcConfigurerAdapter implements CommandLineR
         LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
         lci.setParamName("lang");
         return lci;
-    }
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(localeChangeInterceptor());
     }
 
 }

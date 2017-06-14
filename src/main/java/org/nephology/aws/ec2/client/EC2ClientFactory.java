@@ -5,6 +5,7 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
+import org.nephology.aws.ec2.exception.EC2Exception;
 import org.nephology.properties.CustomPropertyReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,38 +19,46 @@ public class EC2ClientFactory {
     @Autowired
     private CustomPropertyReader cpr;
 
-    protected AmazonEC2 getStaticClient(String region, String accessKey, String secretKey) {
+    protected AmazonEC2 getStaticClient(String region, String accessKey, String secretKey) throws EC2Exception {
         AmazonEC2 client;
         BasicAWSCredentials credentials = getBasicAWSCredentials(accessKey, secretKey);
         if (cpr.isUseAwsProxy()) {
-            client = AmazonEC2ClientBuilder.standard()
-                    .withCredentials(new AWSStaticCredentialsProvider(credentials))
-                    .withRegion(region)
-                    .withClientConfiguration(getClientConfiguration())
-                    .build();
+            client = getClientWithProxy(region, credentials);
         } else {
-            client = AmazonEC2ClientBuilder.standard()
-                    .withCredentials(new AWSStaticCredentialsProvider(credentials))
-                    .withRegion(region)
-                    .build();
+            client = getClientWithoutProxy(region, credentials);
         }
 
         return client;
+    }
+
+    protected AmazonEC2 getClientWithoutProxy(String region, BasicAWSCredentials credentials) {
+        return AmazonEC2ClientBuilder.standard()
+                .withCredentials(new AWSStaticCredentialsProvider(credentials))
+                .withRegion(region)
+                .build();
+    }
+
+    protected AmazonEC2 getClientWithProxy(String region, BasicAWSCredentials credentials) throws EC2Exception {
+        return AmazonEC2ClientBuilder.standard()
+                .withCredentials(new AWSStaticCredentialsProvider(credentials))
+                .withRegion(region)
+                .withClientConfiguration(getClientConfigurationWithProxy())
+                .build();
     }
 
     protected BasicAWSCredentials getBasicAWSCredentials(String accessKey, String secretKey) {
         return new BasicAWSCredentials(accessKey, secretKey);
     }
 
-    protected ClientConfiguration getClientConfiguration() {
+    protected ClientConfiguration getClientConfigurationWithProxy() throws EC2Exception {
         ClientConfiguration clientConfiguration = new ClientConfiguration();
         final String awsProxyHost = cpr.getAwsProxyHost();
         final int awsProxyPort = cpr.getAwsProxyPort();
         if (awsProxyHost == null || awsProxyHost.isEmpty()) {
-            // TODO: 2017-04-18 add exception
+            throw new EC2Exception("AWS client was selected to use proxy, but the proxy host was not specified");
         }
         if (awsProxyPort == 0) {
-            // TODO: 2017-04-18 add exception
+            throw new EC2Exception("AWS client was selected to use proxy, but the proxy port was not specified");
         }
         clientConfiguration.setProxyHost(awsProxyHost);
         clientConfiguration.setProxyPort(awsProxyPort);
